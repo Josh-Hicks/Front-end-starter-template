@@ -3,4 +3,4 @@ This is a simple front-end starter boilerplate project.  It's setup to use ES6, 
 
 Run `npm install` to install packages
 
-Run 'gulp' to run tasks and start watching
+Run `gulp` to run tasks and start watching
