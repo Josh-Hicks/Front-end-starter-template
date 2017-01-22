@@ -1,6 +1,6 @@
 var gulp = require('gulp'),
     babel = require('gulp-babel'),
-    scss = require("gulp-scss"),
+    sass = require("gulp-sass"),
     uglify = require('gulp-uglify'),
     concat = require('gulp-concat'),
     pump = require('pump');
@@ -15,17 +15,15 @@ gulp.task('scripts', () => {
         .pipe(gulp.dest('./dist/js'))
 });
 
-gulp.task("scss", () => {
-   return gulp.src(
-        "./src/scss/**/*.scss"
-    ).pipe(scss(
-        {"bundleExec": true}
-    )).pipe(gulp.dest("./dist/css/"))
+gulp.task('sass', function () {
+ return gulp.src('./src/scss/**/*.scss')
+   .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
+   .pipe(gulp.dest('./dist/css'));
 });
 
-gulp.task('default', ['scripts', 'scss', 'watch']);
+gulp.task('default', ['scripts', 'sass', 'watch']);
 
 gulp.task('watch', () => {
-    return gulp.watch(['./src/**/*', 'index.html'], ['default']);
+    gulp.watch(['./src/js/**/*.js'], ['scripts']);
+    gulp.watch(['./src/scss/**/*.scss'], ['sass']);
 });
-
